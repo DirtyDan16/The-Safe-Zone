@@ -10,6 +10,7 @@ script = ExtResource("1_wafhg")
 
 [node name="SightRange" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_0teca")
+debug_color = Color(0.870588, 0.972549, 1, 0.0980392)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
