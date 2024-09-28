@@ -1,0 +1,84 @@
+[gd_scene load_steps=8 format=3 uid="uid://ihcinsspkuv8"]
+
+[ext_resource type="Script" path="res://scripts/level_1.gd" id="1_5ufpr"]
+[ext_resource type="PackedScene" uid="uid://dd4u7unrwlhvl" path="res://scenes/Player.tscn" id="2_0xq7c"]
+[ext_resource type="PackedScene" uid="uid://n61qt4ef2vkx" path="res://scenes/enemy_spawner___square_seeker.tscn" id="2_idypi"]
+[ext_resource type="PackedScene" uid="uid://b8i2hf8651ciu" path="res://scenes/gui.tscn" id="5_4usb6"]
+[ext_resource type="PackedScene" uid="uid://cffrbe1ovrnco" path="res://scenes/safe_zone.tscn" id="6_00ccs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jw41r"]
+size = Vector2(539, 5005)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_enwhd"]
+size = Vector2(5008, 711)
+
+[node name="Level1" type="Node2D"]
+script = ExtResource("1_5ufpr")
+metadata/_edit_vertical_guides_ = [2507.0, -2501.0]
+metadata/_edit_horizontal_guides_ = [-2501.0, 2504.0]
+
+[node name="ENEMY_SPAWNER - SquareSeeker" parent="." instance=ExtResource("2_idypi")]
+ENEMY_SQUARE_SEEKER_MIN_SPEED = 3.0
+ENEMY_SQUARE_SEEKER_MAX_SPEED = 7.0
+delay = 0.5
+
+[node name="Player" parent="." instance=ExtResource("2_0xq7c")]
+unique_name_in_owner = true
+
+[node name="PlayerCamera" type="Camera2D" parent="Player"]
+position_smoothing_enabled = true
+
+[node name="SafeZone" parent="." instance=ExtResource("6_00ccs")]
+metadata/size = 2000.0
+
+[node name="GUI" parent="." instance=ExtResource("5_4usb6")]
+
+[node name="BackGround" type="ColorRect" parent="."]
+z_index = -100
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4075.0
+offset_top = -3755.0
+offset_right = 3925.0
+offset_bottom = 4245.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.000528476, 0, 0.362977, 1)
+metadata/_edit_lock_ = true
+
+[node name="Borders" type="Area2D" parent="." groups=["Borders"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders"]
+position = Vector2(2772, 1.5)
+shape = SubResource("RectangleShape2D_jw41r")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Borders"]
+position = Vector2(-2775, 2)
+shape = SubResource("RectangleShape2D_jw41r")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Borders"]
+position = Vector2(0, -2849)
+shape = SubResource("RectangleShape2D_enwhd")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Borders"]
+position = Vector2(20, 2869)
+shape = SubResource("RectangleShape2D_enwhd")
+
+[node name="SafeZonesChangeDirectionDelay" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -242.0
+offset_top = -171.0
+offset_right = -202.0
+offset_bottom = -131.0
+
+[connection signal="addEnemy" from="ENEMY_SPAWNER - SquareSeeker" to="." method="add_enemy"]
+[connection signal="createPlayerBullet" from="Player" to="." method="_on_player_create_player_bullet"]
+[connection signal="createPlayerBullet" from="Player" to="." method="_on_player_cerate_player_bullet"]
+[connection signal="gameOver" from="Player" to="." method="game_over"]
+[connection signal="ResetGame" from="GUI" to="." method="_on_gui_reset_game"]
+[connection signal="StartGame" from="GUI" to="." method="_on_gui_start_game"]
+[connection signal="timeout" from="SafeZonesChangeDirectionDelay" to="." method="_on_safe_zones_change_direction_delay_timeout"]

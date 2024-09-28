@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://xblt6kwttnob"]
+
+[ext_resource type="Script" path="res://scripts/enemy_collides_with_player.gd" id="1_iycxf"]
+
+[node name="EnemyHitboxComponent" type="Area2D"]
+collision_layer = 2
+script = ExtResource("1_iycxf")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

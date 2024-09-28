@@ -1,0 +1,124 @@
+[gd_scene load_steps=14 format=3 uid="uid://dd4u7unrwlhvl"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_wkjo4"]
+[ext_resource type="FontFile" uid="uid://bixk2yuo1x2ap" path="res://assets/MaldiniBold.ttf" id="2_3o6u2"]
+[ext_resource type="Texture2D" uid="uid://dmt3hm05alhmq" path="res://assets/InvincibiltyFrames.png" id="2_c370x"]
+[ext_resource type="PackedScene" uid="uid://duff82yvd6i6u" path="res://scenes/Bullets/player_bullets_regular.tscn" id="2_kk16p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h0j6y"]
+size = Vector2(40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ktop"]
+atlas = ExtResource("2_c370x")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0jdj6"]
+atlas = ExtResource("2_c370x")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3hh3m"]
+atlas = ExtResource("2_c370x")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uolnq"]
+atlas = ExtResource("2_c370x")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8fecf"]
+atlas = ExtResource("2_c370x")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uugmp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ktop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0jdj6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3hh3m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uolnq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8fecf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 9.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hmlh4"]
+size = Vector2(42, 42)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pyhfe"]
+radius = 256.096
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+light_mask = 0
+script = ExtResource("1_wkjo4")
+player_bullet = ExtResource("2_kk16p")
+regular_bullet_speed = 700
+
+[node name="PlayerCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_h0j6y")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+unique_name_in_owner = true
+z_index = 2
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+color = Color(0.388235, 0, 1, 1)
+
+[node name="InvincibiltyBorder" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_uugmp")
+autoplay = "default"
+frame_progress = 0.945949
+
+[node name="PlayerDetectionArea" type="Area2D" parent="." groups=["area"]]
+
+[node name="CheckArea" type="CollisionShape2D" parent="PlayerDetectionArea"]
+shape = SubResource("RectangleShape2D_hmlh4")
+
+[node name="SlashArea" type="Area2D" parent="." groups=["Slash"]]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="SlashRadius" type="CollisionShape2D" parent="SlashArea" groups=["Slash"]]
+shape = SubResource("CircleShape2D_pyhfe")
+
+[node name="HealthText" type="Label" parent="."]
+offset_left = -20.0
+offset_top = -52.0
+offset_right = 20.0
+offset_bottom = -21.0
+theme_override_fonts/font = ExtResource("2_3o6u2")
+theme_override_font_sizes/font_size = 24
+
+[node name="I-FramesDuration" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
+
+[node name="DashCooldown" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[node name="SlashDuaration" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="SlashCooldown" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="timeout" from="I-FramesDuration" to="." method="_on_i_frames_duration_timeout"]
+[connection signal="timeout" from="DashCooldown" to="." method="_on_dash_cooldown_timeout"]
+[connection signal="timeout" from="SlashDuaration" to="." method="_on_slash_duaration_timeout"]
+[connection signal="timeout" from="SlashCooldown" to="." method="_on_slash_cooldown_timeout"]

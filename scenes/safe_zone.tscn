@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://cffrbe1ovrnco"]
+
+[ext_resource type="Script" path="res://scripts/safe_zone.gd" id="1_oyfqv"]
+[ext_resource type="Texture2D" uid="uid://diw2jbpm8tu77" path="res://assets/HollowSphere.png" id="2_qat30"]
+[ext_resource type="Script" path="res://scripts/safe_zone_area.gd" id="3_50w0o"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_voaq5"]
+radius = 752.681
+
+[node name="SafeZone" type="RigidBody2D" groups=["SafeZones"]]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("1_oyfqv")
+metadata/size = 500.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-5.08626e-06, -5.08626e-06)
+scale = Vector2(0.67, 0.67)
+shape = SubResource("CircleShape2D_voaq5")
+debug_color = Color(0, 0.598636, 0.707788, 0.42)
+
+[node name="OutlineOfSafeZone" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(7.62939e-06, 7.62939e-06)
+texture = ExtResource("2_qat30")
+
+[node name="DetectionArea" type="Area2D" parent="OutlineOfSafeZone"]
+script = ExtResource("3_50w0o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OutlineOfSafeZone/DetectionArea"]
+position = Vector2(-5.08626e-06, -5.08626e-06)
+scale = Vector2(0.67, 0.67)
+shape = SubResource("CircleShape2D_voaq5")
+debug_color = Color(0, 0.598636, 0.707788, 0.42)
+
+[node name="OutOfZoneTakingDamageDelay" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 1.5
+one_shot = true
+
+[connection signal="area_entered" from="OutlineOfSafeZone/DetectionArea" to="OutlineOfSafeZone/DetectionArea" method="_on_area_entered"]
+[connection signal="area_exited" from="OutlineOfSafeZone/DetectionArea" to="OutlineOfSafeZone/DetectionArea" method="_on_area_exited"]
+[connection signal="body_entered" from="OutlineOfSafeZone/DetectionArea" to="OutlineOfSafeZone/DetectionArea" method="_on_body_entered"]
+[connection signal="body_exited" from="OutlineOfSafeZone/DetectionArea" to="OutlineOfSafeZone/DetectionArea" method="_on_body_exited"]
+[connection signal="timeout" from="OutOfZoneTakingDamageDelay" to="OutlineOfSafeZone/DetectionArea" method="_on_out_of_zone_taking_damage_delay_timeout"]

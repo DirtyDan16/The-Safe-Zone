@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://cyhdpr41d3ude"]
+
+[ext_resource type="FontFile" uid="uid://bixk2yuo1x2ap" path="res://assets/MaldiniBold.ttf" id="1_ajg8c"]
+
+[node name="OpeningScreen" type="Node2D"]
+metadata/_edit_vertical_guides_ = [1920.0]
+
+[node name="BackGround" type="ColorRect" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.0129681, 6.50668e-06, 0.0934653, 1)
+metadata/_edit_lock_ = true
+
+[node name="GUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="GUI"]
+layout_mode = 0
+offset_left = 500.0
+offset_top = 188.0
+offset_right = 1473.0
+offset_bottom = 325.0
+theme_override_fonts/font = ExtResource("1_ajg8c")
+theme_override_font_sizes/font_size = 70
+text = "Welcome
+To begin, click the button below"
