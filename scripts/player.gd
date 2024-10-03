@@ -4,16 +4,19 @@ extends CharacterBody2D
 class_name Player
 
 @onready var dash_cooldown = $DashCooldown
-@onready var shape = %ColorRect
+@onready var shape = %Sprite
 @onready var health_text = $HealthText
 @onready var invincibilty_border = $InvincibiltyBorder
 @onready var i_frames_duration = $"I-FramesDuration"
 @onready var slash_duaration = $SlashDuaration
 @onready var slash_area = $SlashArea
 @onready var slash_cooldown = $SlashCooldown
+@onready var ammo_reloading_duration = $AmmoReloadingDuration
+@onready var progress_bar = $AmmoReloading
 
 @export var player_bullet: PackedScene
 @export var regular_bullet_speed: int
+@export var initialBulletAmmo: int
 
 signal gameOver;
 signal createPlayerBullet;
@@ -35,10 +38,13 @@ var hasInvincibleFrames: bool = false;
 var isSlashing: bool = false
 var isOnSlashCooldown: bool = false;
 var isOnShootCooldown: bool = false;
+var bulletAmmo: int;
+
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	bulletAmmo = initialBulletAmmo
 	health_text.text = str(_HP);
 
 func setIsAlive(expression: bool) -> void:
@@ -79,6 +85,9 @@ func setDashAmount(amount: float) -> void:
 func getDashAmount():
 	return _DASH_AMOUNT
 
+func getAmmoReloadingDuration() -> float:
+	return ammo_reloading_duration.wait_time
+
 func _input(event) -> void:
 	if !isAlive:
 		return
@@ -88,12 +97,21 @@ func _input(event) -> void:
 		elif (event.is_action_pressed("Shoot") and !isOnShootCooldown):
 			print("shoot")
 			player_shoot()
-			
+			if bulletAmmo <= 0:
+				print("reloading")
+				isOnShootCooldown = true;
+				progress_bar.visible = true;
+				ammo_reloading_duration.start()
 
 func player_slash():
 	isSlashing = true;
 	slash_area.monitorable = true
 	slash_duaration.start()
+
+func reload_ammo():
+	isOnShootCooldown = false;
+	bulletAmmo = initialBulletAmmo;
+	progress_bar.visible = false;
 
 func player_shoot() ->void:
 	var newPlayerBullet = player_bullet.instantiate()
@@ -105,6 +123,8 @@ func player_shoot() ->void:
 	newPlayerBullet.setSpeed(regular_bullet_speed); #setting speed
 	newPlayerBullet.setStarterPos(position) #keeping track of where the bullet got created.
 	createPlayerBullet.emit(newPlayerBullet);
+	
+	bulletAmmo-=1;
 
 func _physics_process(delta) -> void:
 	#disables the player inputs if the player is dead
@@ -193,3 +213,7 @@ func _on_slash_duaration_timeout():
 
 func _on_slash_cooldown_timeout():
 	isOnSlashCooldown = false;
+
+
+func _on_ammo_reloading_duration_timeout():
+	reload_ammo()

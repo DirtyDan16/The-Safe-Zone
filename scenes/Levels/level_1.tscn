@@ -93,8 +93,8 @@ position = Vector2(0, 2848)
 shape = SubResource("RectangleShape2D_px1m1")
 
 [connection signal="addEnemy" from="ENEMY_SPAWNER - SquareSeeker" to="." method="add_enemy"]
-[connection signal="createPlayerBullet" from="Player" to="." method="_on_player_create_player_bullet"]
 [connection signal="createPlayerBullet" from="Player" to="." method="_on_player_cerate_player_bullet"]
+[connection signal="createPlayerBullet" from="Player" to="." method="_on_player_create_player_bullet"]
 [connection signal="gameOver" from="Player" to="." method="game_over"]
 [connection signal="ResetGame" from="GUI" to="." method="_on_gui_reset_game"]
 [connection signal="StartGame" from="GUI" to="." method="_on_gui_start_game"]

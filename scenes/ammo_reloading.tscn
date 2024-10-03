@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://527eutn0ph33"]
+
+[ext_resource type="Script" path="res://scripts/AmmoReloading.gd" id="1_5g4jt"]
+
+[node name="AmmoReloading" type="ProgressBar"]
+visible = false
+offset_left = -25.0
+offset_top = -30.0
+offset_right = 25.0
+offset_bottom = -25.0
+show_percentage = false
+script = ExtResource("1_5g4jt")
+
+[node name="ReloadCooldown" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

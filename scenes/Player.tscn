@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://dd4u7unrwlhvl"]
+[gd_scene load_steps=15 format=3 uid="uid://dd4u7unrwlhvl"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_wkjo4"]
 [ext_resource type="FontFile" uid="uid://bixk2yuo1x2ap" path="res://assets/MaldiniBold.ttf" id="2_3o6u2"]
 [ext_resource type="Texture2D" uid="uid://dmt3hm05alhmq" path="res://assets/InvincibiltyFrames.png" id="2_c370x"]
 [ext_resource type="PackedScene" uid="uid://duff82yvd6i6u" path="res://scenes/Bullets/player_bullets_regular.tscn" id="2_kk16p"]
+[ext_resource type="PackedScene" uid="uid://527eutn0ph33" path="res://scenes/ammo_reloading.tscn" id="4_sf1rq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h0j6y"]
 size = Vector2(40, 40)
@@ -62,11 +63,12 @@ light_mask = 0
 script = ExtResource("1_wkjo4")
 player_bullet = ExtResource("2_kk16p")
 regular_bullet_speed = 700
+initialBulletAmmo = 15
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_h0j6y")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Sprite" type="ColorRect" parent="."]
 unique_name_in_owner = true
 z_index = 2
 offset_left = -20.0
@@ -94,6 +96,8 @@ monitorable = false
 [node name="SlashRadius" type="CollisionShape2D" parent="SlashArea" groups=["Slash"]]
 shape = SubResource("CircleShape2D_pyhfe")
 
+[node name="AmmoReloading" parent="." instance=ExtResource("4_sf1rq")]
+
 [node name="HealthText" type="Label" parent="."]
 offset_left = -20.0
 offset_top = -52.0
@@ -118,9 +122,11 @@ one_shot = true
 one_shot = true
 
 [node name="AmmoReloadingDuration" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="timeout" from="I-FramesDuration" to="." method="_on_i_frames_duration_timeout"]
 [connection signal="timeout" from="DashCooldown" to="." method="_on_dash_cooldown_timeout"]
 [connection signal="timeout" from="SlashDuaration" to="." method="_on_slash_duaration_timeout"]
 [connection signal="timeout" from="SlashCooldown" to="." method="_on_slash_cooldown_timeout"]
+[connection signal="timeout" from="AmmoReloadingDuration" to="." method="_on_ammo_reloading_duration_timeout"]
