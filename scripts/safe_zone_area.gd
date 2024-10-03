@@ -3,7 +3,7 @@ extends Area2D
 @onready var out_of_zone_taking_damage_delay = %OutOfZoneTakingDamageDelay
 
 
-func _on_body_exited(body) -> void:
+func _on_body_exited(body: Player) -> void:
 	if !body.is_in_group("Player"):
 		return
 	if body.getDashStatus() == false:
@@ -11,13 +11,13 @@ func _on_body_exited(body) -> void:
 		body.taken_damage(1);
 		print("Player's HP is: ",body.getHP());
 	else: 
-		while true:
+		while true: #this is a checker for if the player is still invincible via dashing
+			push_warning("player dashing outside of zone");
 			await get_tree().create_timer(0.02).timeout
 			if body.getDashStatus() == false:
 				_on_out_of_zone_taking_damage_delay_timeout()
 				break;
 		 
-
 	out_of_zone_taking_damage_delay.start()
 
 
@@ -31,7 +31,7 @@ func _on_out_of_zone_taking_damage_delay_timeout() -> void:
 	var SafeZones: Array = get_tree().get_nodes_in_group("SafeZones")
 	for SafeZone in SafeZones:
 		for shape in SafeZone.get_node("OutlineOfSafeZone").get_node("DetectionArea").get_overlapping_bodies():
-			if shape == Player: return
+			if shape == player: return
 	
 	player.taken_damage(1); 
 	#print("Player's HP is: ",Player.getHP());

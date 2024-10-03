@@ -117,6 +117,8 @@ one_shot = true
 [node name="SlashCooldown" type="Timer" parent="."]
 one_shot = true
 
+[node name="AmmoReloadingDuration" type="Timer" parent="."]
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="timeout" from="I-FramesDuration" to="." method="_on_i_frames_duration_timeout"]
 [connection signal="timeout" from="DashCooldown" to="." method="_on_dash_cooldown_timeout"]

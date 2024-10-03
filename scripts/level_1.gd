@@ -2,7 +2,7 @@ extends "res://scripts/level_skeleton.gd"
 
 
 func _ready():
-	PLAYER_HP = 200;
+	PLAYER_HP = 20;
 	PLAYER_SPEED = 600
 	SAFE_ZONE_MIN_SPEED = 100
 	SAFE_ZONE_MAX_SPEED = 150

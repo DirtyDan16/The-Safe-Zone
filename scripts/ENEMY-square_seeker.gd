@@ -25,7 +25,6 @@ func _on_homing_move_enemy_towards_player(player: Player) -> void:
 func _on_hitbox_collided_with_player(player: Player) -> void:
 	player.taken_damage(damageOnContact);
 	collidedWithPlayer.emit()
-	print("enemy dead")
 	queue_free()
 
 

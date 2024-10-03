@@ -83,10 +83,12 @@ func _input(event) -> void:
 	if !isAlive:
 		return
 	if !isCurrentlyDashing:
-		if (Input.is_action_just_pressed("Slash") and !isOnSlashCooldown and !isSlashing):
+		if (event.is_action_pressed("Slash") and !isOnSlashCooldown and !isSlashing):
 			player_slash()
-		if (Input.is_action_just_pressed("Shoot") and !isOnShootCooldown):
+		elif (event.is_action_pressed("Shoot") and !isOnShootCooldown):
+			print("shoot")
 			player_shoot()
+			
 
 func player_slash():
 	isSlashing = true;
@@ -149,7 +151,6 @@ func _physics_process(delta) -> void:
 	moveDirection = Vector2(0,0); #resets the direction the player is moving towards (used for dashes)
 
 func player_starts_dashing() ->void:
-	#print("isCurrentlyDashing = ",isCurrentlyDashing)
 	change_brightness(2.5)
 	shape.size.y = 30
 	shape.position.y += 5;
@@ -160,16 +161,14 @@ func player_starts_dashing() ->void:
 	dash_cooldown.start() #have a cooldown between the current and the next dash
 
 func while_dashing(delta) -> void:
-	#print("isCurrentlyDashing = ",isCurrentlyDashing)
 	position += dashMoveDirection*_DASH_SPEED*delta; #dash movement
-	if sqrt(pow(position.y - startingPosWhenDashed.y,2) +  
-	   pow(position.x - startingPosWhenDashed.x,2)) > _DASH_AMOUNT: #if the player reached a certain distance, make them stop dashing
-			change_brightness(1/2.5)
-			shape.size.y = 40
-			shape.position.y -= 5;
-			isCurrentlyDashing = false;
-			dashMoveDirection = Vector2(0,0)
-			#print("isCurrentlyDashing = ",isCurrentlyDashing)
+	if position.distance_to(startingPosWhenDashed) > _DASH_AMOUNT: #if the player reached a certain distance, make them stop dashing
+		change_brightness(1/2.5)
+		shape.size.y = 40
+		shape.position.y -= 5;
+		isCurrentlyDashing = false;
+		dashMoveDirection = Vector2(0,0)
+
 
 func _on_dash_cooldown_timeout():
 	canDashAgain = true;

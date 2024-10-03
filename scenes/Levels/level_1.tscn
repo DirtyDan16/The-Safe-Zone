@@ -20,7 +20,7 @@ metadata/_edit_horizontal_guides_ = [-2501.0, 2504.0]
 [node name="ENEMY_SPAWNER - SquareSeeker" parent="." instance=ExtResource("2_idypi")]
 ENEMY_SQUARE_SEEKER_MIN_SPEED = 3.0
 ENEMY_SQUARE_SEEKER_MAX_SPEED = 7.0
-delay = 5.0
+delay = 0.5
 
 [node name="Player" parent="." instance=ExtResource("2_0xq7c")]
 unique_name_in_owner = true
@@ -52,18 +52,21 @@ metadata/_edit_lock_ = true
 wait_time = 5.0
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 offset_left = -242.0
 offset_top = -171.0
 offset_right = -202.0
 offset_bottom = -131.0
 
 [node name="ColorRect2" type="ColorRect" parent="."]
+visible = false
 offset_left = 173.0
 offset_top = -233.0
 offset_right = 213.0
 offset_bottom = -193.0
 
 [node name="ColorRect3" type="ColorRect" parent="."]
+visible = false
 offset_left = 115.0
 offset_top = 164.0
 offset_right = 155.0
@@ -90,8 +93,8 @@ position = Vector2(0, 2848)
 shape = SubResource("RectangleShape2D_px1m1")
 
 [connection signal="addEnemy" from="ENEMY_SPAWNER - SquareSeeker" to="." method="add_enemy"]
-[connection signal="createPlayerBullet" from="Player" to="." method="_on_player_cerate_player_bullet"]
 [connection signal="createPlayerBullet" from="Player" to="." method="_on_player_create_player_bullet"]
+[connection signal="createPlayerBullet" from="Player" to="." method="_on_player_cerate_player_bullet"]
 [connection signal="gameOver" from="Player" to="." method="game_over"]
 [connection signal="ResetGame" from="GUI" to="." method="_on_gui_reset_game"]
 [connection signal="StartGame" from="GUI" to="." method="_on_gui_start_game"]
