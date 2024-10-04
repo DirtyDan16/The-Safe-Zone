@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b8i2hf8651ciu"]
+[gd_scene load_steps=6 format=3 uid="uid://b8i2hf8651ciu"]
 
 [ext_resource type="FontFile" uid="uid://bixk2yuo1x2ap" path="res://assets/MaldiniBold.ttf" id="1_g5p5y"]
 [ext_resource type="Script" path="res://scripts/gui.gd" id="1_un118"]
 [ext_resource type="Script" path="res://scripts/StartLevelButton.gd" id="2_1ph2g"]
 [ext_resource type="Script" path="res://scripts/ResetLevelButton.gd" id="4_ojoei"]
+[ext_resource type="Script" path="res://scripts/ScoreDisplay.gd" id="5_il5d8"]
 
 [node name="GUI" type="CanvasLayer"]
 script = ExtResource("1_un118")
@@ -48,7 +49,21 @@ theme_override_font_sizes/font_size = 60
 text = "RESET LEVEL"
 script = ExtResource("4_ojoei")
 
+[node name="Score" type="Label" parent="."]
+offset_left = 60.0
+offset_top = 30.0
+offset_right = 153.0
+offset_bottom = 74.0
+theme_override_fonts/font = ExtResource("1_g5p5y")
+theme_override_font_sizes/font_size = 32
+text = "SCORE: 0"
+script = ExtResource("5_il5d8")
+
+[node name="SurvivalPointsCooldown" type="Timer" parent="Score"]
+
+[connection signal="StartScoringCounter" from="." to="Score" method="_on_gui_start_scoring_counter"]
 [connection signal="StartGame" from="StartLevelButton" to="." method="_on_start_level_button_start_game"]
 [connection signal="pressed" from="StartLevelButton" to="StartLevelButton" method="_on_pressed"]
 [connection signal="ResetGame" from="ResetLevelButton" to="." method="_on_reset_level_button_reset_game"]
 [connection signal="pressed" from="ResetLevelButton" to="ResetLevelButton" method="_on_pressed"]
+[connection signal="timeout" from="Score/SurvivalPointsCooldown" to="Score" method="_on_survival_points_cooldown_timeout"]

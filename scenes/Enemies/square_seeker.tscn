@@ -9,6 +9,7 @@ size = Vector2(40, 39)
 
 [node name="SquareSeeker" type="Node2D" groups=["Enemies"]]
 script = ExtResource("1_mxrp5")
+scoreForEliminating = 5
 metadata/_edit_vertical_guides_ = [200.0, 500.0, 348.0]
 
 [node name="EnemyHomingComponent" parent="." instance=ExtResource("2_gigk1")]

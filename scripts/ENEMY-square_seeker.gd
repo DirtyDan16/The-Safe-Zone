@@ -6,6 +6,7 @@ signal collidedWithPlayer
 #------CONST
 var _SPEED: float = 3
 @export var damageOnContact: int = 1
+@export var scoreForEliminating: int = 50
 var health: float = 2;
 
 
@@ -30,4 +31,6 @@ func _on_hitbox_collided_with_player(player: Player) -> void:
 
 func _on_enemy_hitbox_component_got_shot_by_bullet(damageTaken: float):
 	health -= damageTaken;
-	if health <= 0: queue_free()
+	if health <= 0:
+		GlobalSignals.ModifyPlayerScore.emit(scoreForEliminating)
+		queue_free()

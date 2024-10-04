@@ -24,6 +24,7 @@ delay = 0.5
 
 [node name="Player" parent="." instance=ExtResource("2_0xq7c")]
 unique_name_in_owner = true
+initialBulletAmmo = 20
 
 [node name="PlayerCamera" type="Camera2D" parent="Player"]
 position_smoothing_enabled = true

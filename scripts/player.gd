@@ -15,17 +15,18 @@ class_name Player
 @onready var progress_bar = $AmmoReloading
 
 @export var player_bullet: PackedScene
+
+#----PLAYER MODIFIERS
 @export var regular_bullet_speed: int
 @export var initialBulletAmmo: int
+@export var playerHealth: float = 5
+@export var playerSpeed: float = 600
+@export var dashAmount: float = 300
+@export var dashSpeed: float = 2000
 
 signal gameOver;
 signal createPlayerBullet;
 
-#---------CONST
-var _MOVE_SPEED: float
-var _DASH_SPEED: float
-var _HP: float
-var _DASH_AMOUNT: float
 
 #--------VAR
 var isAlive: bool = false;
@@ -45,24 +46,24 @@ var bulletAmmo: int;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	bulletAmmo = initialBulletAmmo
-	health_text.text = str(_HP);
+	health_text.text = str(playerHealth);
 
 func setIsAlive(expression: bool) -> void:
 	isAlive = expression;
 
 func setHP(HP):
-	_HP = HP;
-	health_text.text = str(_HP);
+	playerHealth = HP;
+	health_text.text = str(playerHealth);
 
 func getHP() -> float:
-	return _HP;
+	return playerHealth;
 
 func taken_damage(damageTaken: float):
 	
 	if hasInvincibleFrames: return
 	
-	_HP -= damageTaken;
-	health_text.text = str(_HP);
+	playerHealth -= damageTaken;
+	health_text.text = str(playerHealth);
 	hasInvincibleFrames = true;
 	invincibilty_border.visible = true;
 	i_frames_duration.start()
@@ -71,19 +72,19 @@ func getSlashStatus() -> bool:
 	return isSlashing;
 
 func setSpeed(speed):
-	_MOVE_SPEED = speed;
+	playerSpeed = speed;
 
 func setDashSpeed(speed):
-	_DASH_SPEED = speed
+	dashSpeed = speed
 
 func getDashStatus() -> bool:
 	return isCurrentlyDashing;
 
 func setDashAmount(amount: float) -> void:
-	_DASH_AMOUNT = amount;
+	dashAmount = amount;
 
 func getDashAmount():
-	return _DASH_AMOUNT
+	return dashAmount
 
 func getAmmoReloadingDuration() -> float:
 	return ammo_reloading_duration.wait_time
@@ -130,7 +131,7 @@ func _physics_process(delta) -> void:
 	#disables the player inputs if the player is dead
 	if !isAlive:
 		return
-	if _HP <= 0:
+	if playerHealth <= 0:
 		isAlive = false;
 		visible = false;
 		i_frames_duration.stop()
@@ -146,21 +147,21 @@ func _physics_process(delta) -> void:
 				Enemy.got_slashed_by_player()
 			
 	
-	health_text.text = str(_HP);
+	health_text.text = str(playerHealth);
 	
 	#lets the player move if the cube isn't dashing, otherwise only let them dash
 	if !isCurrentlyDashing:
 		if (Input.is_action_pressed("MoveLeft")):
-			position.x -= _MOVE_SPEED*delta;
+			position.x -= playerSpeed*delta;
 			moveDirection += Vector2(-1,0)
 		if (Input.is_action_pressed("MoveRight")):
-			position.x += _MOVE_SPEED*delta;
+			position.x += playerSpeed*delta;
 			moveDirection += Vector2(1,0)
 		if (Input.is_action_pressed("MoveUp")):
-			position.y -= _MOVE_SPEED*delta;
+			position.y -= playerSpeed*delta;
 			moveDirection += Vector2(0,-1)
 		if (Input.is_action_pressed("MoveDown")):
-			position.y += _MOVE_SPEED*delta;
+			position.y += playerSpeed*delta;
 			moveDirection += Vector2(0,1)
 	else: while_dashing(delta)
 	
@@ -181,8 +182,8 @@ func player_starts_dashing() ->void:
 	dash_cooldown.start() #have a cooldown between the current and the next dash
 
 func while_dashing(delta) -> void:
-	position += dashMoveDirection*_DASH_SPEED*delta; #dash movement
-	if position.distance_to(startingPosWhenDashed) > _DASH_AMOUNT: #if the player reached a certain distance, make them stop dashing
+	position += dashMoveDirection*dashSpeed*delta; #dash movement
+	if position.distance_to(startingPosWhenDashed) > dashAmount: #if the player reached a certain distance, make them stop dashing
 		change_brightness(1/2.5)
 		shape.size.y = 40
 		shape.position.y -= 5;

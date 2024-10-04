@@ -8,12 +8,8 @@ extends Node2D
 
 #---GAME MODIFIERS:
 var SAFE_ZONE_SIZE: float
-var PLAYER_SPEED: float
-var PLAYER_HP: float
 var SAFE_ZONE_MIN_SPEED: float
 var SAFE_ZONE_MAX_SPEED: float
-var DASH_AMOUNT: float
-var DASH_SPEED: float
 
 #--------VAR
 var gameAlive: bool = false;
@@ -32,6 +28,7 @@ func game_start() -> void:
 	
 
 func game_over() -> void:
+	GlobalSignals.StopScore.emit()
 	print("game over")
 	reset_level_button.visible = true;
 
