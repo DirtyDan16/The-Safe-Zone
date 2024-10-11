@@ -1,8 +1,6 @@
 extends RigidBody2D
 
 
-@onready var outline = %OutlineOfSafeZone
-
 #-----------VAR
 var velocity = Vector2(0,0)
 var bounce_factor = 0.8

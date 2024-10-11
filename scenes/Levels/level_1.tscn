@@ -28,7 +28,7 @@ delay = 0.5
 [node name="Player" parent="." instance=ExtResource("2_0xq7c")]
 unique_name_in_owner = true
 initialBulletAmmo = 20
-playerHealth = 400.0
+playerHealth = 200.0
 
 [node name="PlayerCamera" type="Camera2D" parent="Player"]
 position_smoothing_enabled = true
@@ -36,12 +36,19 @@ position_smoothing_enabled = true
 [node name="SafeZone" parent="." instance=ExtResource("6_00ccs")]
 
 [node name="SafeZone2" parent="." instance=ExtResource("6_00ccs")]
-position = Vector2(1358, -264)
-scale = Vector2(2, 2)
+position = Vector2(1078, -144)
 
 [node name="SafeZone3" parent="." instance=ExtResource("6_00ccs")]
-position = Vector2(-1078, 287)
-scale = Vector2(0.8, 0.8)
+position = Vector2(-1432, 748)
+
+[node name="CollisionShapeOfZone" parent="SafeZone3/SafeZoneBody" index="0"]
+scale = Vector2(2, 2)
+
+[node name="DetectionArea" parent="SafeZone3/SafeZoneBody" index="1"]
+scale = Vector2(2, 2)
+
+[node name="OutlineOfSafeZone" parent="SafeZone3/SafeZoneBody" index="2"]
+scale = Vector2(2, 2)
 
 [node name="GUI" parent="." instance=ExtResource("5_4usb6")]
 
@@ -102,3 +109,5 @@ position = Vector2(-448, 688)
 [connection signal="ResetGame" from="GUI" to="." method="_on_gui_reset_game"]
 [connection signal="StartGame" from="GUI" to="." method="_on_gui_start_game"]
 [connection signal="timeout" from="SafeZonesChangeDirectionDelay" to="." method="_on_safe_zones_change_direction_delay_timeout"]
+
+[editable path="SafeZone3"]

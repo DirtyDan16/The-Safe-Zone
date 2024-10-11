@@ -42,6 +42,7 @@ var isSlashing: bool = false
 var isOnSlashCooldown: bool = false;
 var isOnShootCooldown: bool = false;
 var bulletAmmo: int;
+var hasPowerupSuperDash: bool = false;
 
 
 
@@ -61,10 +62,19 @@ func getHP() -> float:
 	return playerHealth;
 
 func taken_damage(damageTaken: float):
-	
 	if hasInvincibleFrames: return
 	
 	playerHealth -= damageTaken;
+	if playerHealth <= 0:
+		isAlive = false; #makes the player not correspound to inputs
+		visible = false; #hides the player
+		#makes the player undetected by homing enemies
+		collision_layer = 0
+		collision_mask = 0
+		i_frames_duration.stop()
+		gameOver.emit()
+		return;
+	
 	health_text.text = str(playerHealth);
 	hasInvincibleFrames = true;
 	invincibilty_border.visible = true;
@@ -133,14 +143,7 @@ func _physics_process(delta) -> void:
 	#disables the player inputs if the player is dead
 	if !isAlive:
 		return
-	if playerHealth <= 0:
-		isAlive = false;
-		visible = false;
-		i_frames_duration.stop()
-		
-		gameOver.emit()
-		return;
-	
+
 	if getSlashStatus() == true:
 		var listOfEnemies: Array = slash_area.get_overlapping_areas()
 		
@@ -191,6 +194,10 @@ func while_dashing(delta) -> void:
 		shape.position.y -= 5;
 		isCurrentlyDashing = false;
 		dashMoveDirection = Vector2(0,0)
+		if hasPowerupSuperDash:
+			hasInvincibleFrames = true;
+			invincibilty_border.visible = true;
+			i_frames_duration.start()
 
 
 func _on_dash_cooldown_timeout():
@@ -223,9 +230,12 @@ func _on_ammo_reloading_duration_timeout():
 
 func startSuperDash():
 	super_dash_duration.start()
-	dashAmount*=superDashDashMultiplier
+	if (!hasPowerupSuperDash): dashAmount*=superDashDashMultiplier
+	hasPowerupSuperDash = true;
+
 
 
 
 func _on_super_dash_duration_timeout():
+	hasPowerupSuperDash = false;
 	dashAmount/=superDashDashMultiplier
