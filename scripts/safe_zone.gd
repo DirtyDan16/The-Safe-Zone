@@ -4,7 +4,6 @@ extends RigidBody2D
 @onready var outline = %OutlineOfSafeZone
 
 #-----------VAR
-var moveDirection: Vector2;
 var velocity = Vector2(0,0)
 var bounce_factor = 0.8
 
@@ -17,21 +16,7 @@ func changeMoveDirectionVector(minRadius: float,maxRadius: float) -> void:
 
 
 func _ready() -> void:
-	var SAFE_ZONE_SIZE: float = self.get_meta("size")
-	
-	position += moveDirection
-	
-	
 	gravity_scale = 0  # This removes gravity effect
-	
-	
-	# Set the scale of the Sprite to match the radius
-	if SAFE_ZONE_SIZE > 0:
-		# Calculate scale factor based on texture size
-		var texture_size = outline.texture.get_size().x * outline.scale.x
-		var scale_factor = SAFE_ZONE_SIZE / texture_size
-		$CollisionShape2D.scale = Vector2(scale_factor, scale_factor)
-		outline.scale  = Vector2(scale_factor, scale_factor)
 
 func zone_physics_process(delta) -> void:
 	

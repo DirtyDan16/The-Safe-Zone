@@ -4,8 +4,6 @@ extends Area2D
 
 
 func _on_body_exited(body: Player) -> void:
-	if !body.is_in_group("Player"):
-		return
 	if body.getDashStatus() == false:
 		print("dashStatus = ",body.getDashStatus())
 		body.taken_damage(1);
@@ -30,7 +28,7 @@ func _on_out_of_zone_taking_damage_delay_timeout() -> void:
 	
 	var SafeZones: Array = get_tree().get_nodes_in_group("SafeZones")
 	for SafeZone in SafeZones:
-		for shape in SafeZone.get_node("OutlineOfSafeZone").get_node("DetectionArea").get_overlapping_bodies():
+		for shape in SafeZone.get_node("DetectionArea").get_overlapping_bodies():
 			if shape == player: return
 	
 	player.taken_damage(1); 

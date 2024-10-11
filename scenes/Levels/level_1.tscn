@@ -34,7 +34,14 @@ playerHealth = 400.0
 position_smoothing_enabled = true
 
 [node name="SafeZone" parent="." instance=ExtResource("6_00ccs")]
-metadata/size = 2000.0
+
+[node name="SafeZone2" parent="." instance=ExtResource("6_00ccs")]
+position = Vector2(1358, -264)
+scale = Vector2(2, 2)
+
+[node name="SafeZone3" parent="." instance=ExtResource("6_00ccs")]
+position = Vector2(-1078, 287)
+scale = Vector2(0.8, 0.8)
 
 [node name="GUI" parent="." instance=ExtResource("5_4usb6")]
 
@@ -55,27 +62,6 @@ metadata/_edit_lock_ = true
 
 [node name="SafeZonesChangeDirectionDelay" type="Timer" parent="."]
 wait_time = 5.0
-
-[node name="ColorRect" type="ColorRect" parent="."]
-visible = false
-offset_left = -242.0
-offset_top = -171.0
-offset_right = -202.0
-offset_bottom = -131.0
-
-[node name="ColorRect2" type="ColorRect" parent="."]
-visible = false
-offset_left = 173.0
-offset_top = -233.0
-offset_right = 213.0
-offset_bottom = -193.0
-
-[node name="ColorRect3" type="ColorRect" parent="."]
-visible = false
-offset_left = 115.0
-offset_top = 164.0
-offset_right = 155.0
-offset_bottom = 204.0
 
 [node name="Borders" type="StaticBody2D" parent="." groups=["Borders"]]
 collision_layer = 16
@@ -100,9 +86,18 @@ shape = SubResource("RectangleShape2D_px1m1")
 [node name="Crystal" parent="." instance=ExtResource("6_adu3w")]
 position = Vector2(-315, -204)
 
+[node name="Crystal2" parent="." instance=ExtResource("6_adu3w")]
+position = Vector2(2244, -1042)
+
+[node name="Crystal3" parent="." instance=ExtResource("6_adu3w")]
+position = Vector2(1108, 415)
+
+[node name="Crystal4" parent="." instance=ExtResource("6_adu3w")]
+position = Vector2(-448, 688)
+
 [connection signal="addEnemy" from="ListOfEnemySpawners/ENEMY_SPAWNER - SquareSeeker" to="." method="add_enemy"]
-[connection signal="createPlayerBullet" from="Player" to="." method="_on_player_cerate_player_bullet"]
 [connection signal="createPlayerBullet" from="Player" to="." method="_on_player_create_player_bullet"]
+[connection signal="createPlayerBullet" from="Player" to="." method="_on_player_cerate_player_bullet"]
 [connection signal="gameOver" from="Player" to="." method="game_over"]
 [connection signal="ResetGame" from="GUI" to="." method="_on_gui_reset_game"]
 [connection signal="StartGame" from="GUI" to="." method="_on_gui_start_game"]
