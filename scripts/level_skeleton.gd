@@ -6,8 +6,11 @@ extends Node2D
 @onready var safe_zones_movement_timer = $SafeZonesChangeDirectionDelay
 @onready var list_of_enemy_spawners = $ListOfEnemySpawners
 @onready var list_of_collectable_spawners = $ListOfCollectableSpawners
+@onready var list_of_bullet_hell_projectiles = $ListOfBulletHellProjectiles
+
 var enemySpawners: Array[Node]
 var collectableSpawners: Array[Node];
+var bulletHellProjectiles: Array[Node];
 
 
 #---GAME MODIFIERS:
@@ -54,6 +57,11 @@ func add_enemy(Enemy: Object) -> void:
 
 func add_collectable(Collectable: Object) -> void:
 	add_child(Collectable)
+
+func add_bullet(Bullet: Object,lifespan: float) -> void:
+	add_child(Bullet)
+	await get_tree().create_timer(lifespan).timeout
+	Bullet.queue_free()
 
 func _on_player_cerate_player_bullet(bullet: PlayerBullets):
 	#print("got to func: _on_player_cerate_player_bullet")

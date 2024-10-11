@@ -1,3 +1,16 @@
-[gd_scene format=3 uid="uid://njgln7mgwjca"]
+[gd_scene load_steps=3 format=3 uid="uid://njgln7mgwjca"]
+
+[ext_resource type="Script" path="res://scripts/bullet_spawner___grid_square_bullet.gd" id="1_fidbx"]
+[ext_resource type="PackedScene" uid="uid://3ur6bbfiwv0h" path="res://scenes/Bullets/bullet_grid_square_bullet.tscn" id="2_lymsv"]
 
 [node name="BULLET_SPAWNER - GridSquareBullet" type="Node2D"]
+script = ExtResource("1_fidbx")
+GridSquareBullet = ExtResource("2_lymsv")
+delay = 0.2
+
+[node name="DelayBetweenBulletSpawning" type="Timer" parent="."]
+
+[node name="BulletFadeInTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="DelayBetweenBulletSpawning" to="." method="_on_delay_between_bullet_spawning_timeout"]

@@ -8,6 +8,7 @@ offsets = PackedFloat32Array(0.24, 0.646667)
 colors = PackedColorArray(0.546667, 0.546667, 0.546667, 1, 1, 1, 1, 1)
 
 [node name="Crystal" type="Area2D"]
+z_index = 10
 script = ExtResource("1_m82rc")
 pointsForCollecting = 200
 

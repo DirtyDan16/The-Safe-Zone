@@ -7,9 +7,7 @@ var reload_value: int = 0;
 func _ready():
 	pass
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	value = (reloadCooldown.wait_time - reloadCooldown.time_left)*100;
 
 

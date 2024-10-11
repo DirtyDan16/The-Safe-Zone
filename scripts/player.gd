@@ -220,10 +220,8 @@ func _on_slash_duaration_timeout():
 	isOnSlashCooldown = true;
 	slash_cooldown.start()
 
-
 func _on_slash_cooldown_timeout():
 	isOnSlashCooldown = false;
-
 
 func _on_ammo_reloading_duration_timeout():
 	reload_ammo()
@@ -233,9 +231,10 @@ func startSuperDash():
 	if (!hasPowerupSuperDash): dashAmount*=superDashDashMultiplier
 	hasPowerupSuperDash = true;
 
-
-
-
 func _on_super_dash_duration_timeout():
 	hasPowerupSuperDash = false;
 	dashAmount/=superDashDashMultiplier
+
+func _on_player_detection_area_area_entered(bullet: EnviornmentBullet):
+	if isCurrentlyDashing or hasInvincibleFrames: return
+	taken_damage(bullet.DamageDealing)

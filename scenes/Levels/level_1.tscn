@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://ihcinsspkuv8"]
+[gd_scene load_steps=10 format=3 uid="uid://ihcinsspkuv8"]
 
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_5ufpr"]
 [ext_resource type="PackedScene" uid="uid://dd4u7unrwlhvl" path="res://scenes/Player.tscn" id="2_0xq7c"]
 [ext_resource type="PackedScene" uid="uid://n61qt4ef2vkx" path="res://scenes/enemy_spawner___square_seeker.tscn" id="2_idypi"]
 [ext_resource type="PackedScene" uid="uid://513s3xq8n2wl" path="res://scenes/collectable_spawner___crystal.tscn" id="3_ytk5k"]
+[ext_resource type="PackedScene" uid="uid://njgln7mgwjca" path="res://scenes/bullet_spawner___grid_square_bullet.tscn" id="4_p4fx2"]
 [ext_resource type="PackedScene" uid="uid://b8i2hf8651ciu" path="res://scenes/gui.tscn" id="5_4usb6"]
 [ext_resource type="PackedScene" uid="uid://cffrbe1ovrnco" path="res://scenes/safe_zone.tscn" id="6_00ccs"]
 
@@ -29,30 +30,53 @@ delay = 0.5
 
 [node name="COLLECTABLE_SPAWNER - crystal" parent="ListOfCollectableSpawners" instance=ExtResource("3_ytk5k")]
 
+[node name="ListOfBulletHellProjectiles" type="Node" parent="."]
+
+[node name="BULLET_SPAWNER - GridSquareBullet" parent="ListOfBulletHellProjectiles" instance=ExtResource("4_p4fx2")]
+
 [node name="Player" parent="." instance=ExtResource("2_0xq7c")]
 unique_name_in_owner = true
 initialBulletAmmo = 20
-playerHealth = 20.0
+playerHealth = 200.0
 
 [node name="PlayerCamera" type="Camera2D" parent="Player"]
 position_smoothing_enabled = true
 
 [node name="SafeZone" parent="." instance=ExtResource("6_00ccs")]
-
-[node name="SafeZone2" parent="." instance=ExtResource("6_00ccs")]
-position = Vector2(1078, -144)
-
-[node name="SafeZone3" parent="." instance=ExtResource("6_00ccs")]
 position = Vector2(-1432, 748)
 
+[node name="CollisionShapeOfZone" parent="SafeZone/SafeZoneBody" index="0"]
+scale = Vector2(1.5, 1.5)
+
+[node name="DetectionArea" parent="SafeZone/SafeZoneBody" index="1"]
+scale = Vector2(1.5, 1.5)
+
+[node name="OutlineOfSafeZone" parent="SafeZone/SafeZoneBody" index="2"]
+scale = Vector2(1.5, 1.5)
+
+[node name="SafeZone2" parent="." instance=ExtResource("6_00ccs")]
+position = Vector2(-2, -2)
+
+[node name="CollisionShapeOfZone" parent="SafeZone2/SafeZoneBody" index="0"]
+scale = Vector2(1.5, 1.5)
+
+[node name="DetectionArea" parent="SafeZone2/SafeZoneBody" index="1"]
+scale = Vector2(1.5, 1.5)
+
+[node name="OutlineOfSafeZone" parent="SafeZone2/SafeZoneBody" index="2"]
+scale = Vector2(1.5, 1.5)
+
+[node name="SafeZone3" parent="." instance=ExtResource("6_00ccs")]
+position = Vector2(1521, 748)
+
 [node name="CollisionShapeOfZone" parent="SafeZone3/SafeZoneBody" index="0"]
-scale = Vector2(2, 2)
+scale = Vector2(1.5, 1.5)
 
 [node name="DetectionArea" parent="SafeZone3/SafeZoneBody" index="1"]
-scale = Vector2(2, 2)
+scale = Vector2(1.5, 1.5)
 
 [node name="OutlineOfSafeZone" parent="SafeZone3/SafeZoneBody" index="2"]
-scale = Vector2(2, 2)
+scale = Vector2(1.5, 1.5)
 
 [node name="GUI" parent="." instance=ExtResource("5_4usb6")]
 
@@ -96,11 +120,14 @@ shape = SubResource("RectangleShape2D_px1m1")
 
 [connection signal="addEnemy" from="ListOfEnemySpawners/ENEMY_SPAWNER - SquareSeeker" to="." method="add_enemy"]
 [connection signal="addCollectable" from="ListOfCollectableSpawners/COLLECTABLE_SPAWNER - crystal" to="." method="add_collectable"]
-[connection signal="createPlayerBullet" from="Player" to="." method="_on_player_create_player_bullet"]
+[connection signal="addBullet" from="ListOfBulletHellProjectiles/BULLET_SPAWNER - GridSquareBullet" to="." method="add_bullet"]
 [connection signal="createPlayerBullet" from="Player" to="." method="_on_player_cerate_player_bullet"]
+[connection signal="createPlayerBullet" from="Player" to="." method="_on_player_create_player_bullet"]
 [connection signal="gameOver" from="Player" to="." method="game_over"]
 [connection signal="ResetGame" from="GUI" to="." method="_on_gui_reset_game"]
 [connection signal="StartGame" from="GUI" to="." method="_on_gui_start_game"]
 [connection signal="timeout" from="SafeZonesChangeDirectionDelay" to="." method="_on_safe_zones_change_direction_delay_timeout"]
 
+[editable path="SafeZone"]
+[editable path="SafeZone2"]
 [editable path="SafeZone3"]

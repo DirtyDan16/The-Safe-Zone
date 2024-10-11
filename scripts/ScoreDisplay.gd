@@ -9,13 +9,6 @@ func _ready():
 	GlobalSignals.StopScore.connect(Callable(self,"finaliseScore"))
 	GlobalSignals.ModifyPlayerScore.connect(Callable(self,"modifyScore"));
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
-
 func _on_gui_start_scoring_counter():
 	isScoreModifiable = true;
 	$SurvivalPointsCooldown.start()
