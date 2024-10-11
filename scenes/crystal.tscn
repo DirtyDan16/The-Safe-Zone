@@ -9,6 +9,7 @@ colors = PackedColorArray(0.546667, 0.546667, 0.546667, 1, 1, 1, 1, 1)
 
 [node name="Crystal" type="Area2D"]
 script = ExtResource("1_m82rc")
+pointsForCollecting = 200
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 5

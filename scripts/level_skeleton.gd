@@ -5,7 +5,9 @@ extends Node2D
 @onready var player = %Player
 @onready var safe_zones_movement_timer = $SafeZonesChangeDirectionDelay
 @onready var list_of_enemy_spawners = $ListOfEnemySpawners
+@onready var list_of_collectable_spawners = $ListOfCollectableSpawners
 var enemySpawners: Array[Node]
+var collectableSpawners: Array[Node];
 
 
 #---GAME MODIFIERS:
@@ -49,6 +51,9 @@ func _on_safe_zones_change_direction_delay_timeout():
 
 func add_enemy(Enemy: Object) -> void:
 	add_child(Enemy)
+
+func add_collectable(Collectable: Object) -> void:
+	add_child(Collectable)
 
 func _on_player_cerate_player_bullet(bullet: PlayerBullets):
 	#print("got to func: _on_player_cerate_player_bullet")

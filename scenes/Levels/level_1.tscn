@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_5ufpr"]
 [ext_resource type="PackedScene" uid="uid://dd4u7unrwlhvl" path="res://scenes/Player.tscn" id="2_0xq7c"]
 [ext_resource type="PackedScene" uid="uid://n61qt4ef2vkx" path="res://scenes/enemy_spawner___square_seeker.tscn" id="2_idypi"]
+[ext_resource type="PackedScene" uid="uid://513s3xq8n2wl" path="res://scenes/collectable_spawner___crystal.tscn" id="3_ytk5k"]
 [ext_resource type="PackedScene" uid="uid://b8i2hf8651ciu" path="res://scenes/gui.tscn" id="5_4usb6"]
 [ext_resource type="PackedScene" uid="uid://cffrbe1ovrnco" path="res://scenes/safe_zone.tscn" id="6_00ccs"]
-[ext_resource type="PackedScene" uid="uid://dvu68t415qp6g" path="res://scenes/crystal.tscn" id="6_adu3w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_05foh"]
 size = Vector2(619, 5005)
@@ -25,10 +25,14 @@ ENEMY_SQUARE_SEEKER_MIN_SPEED = 3.0
 ENEMY_SQUARE_SEEKER_MAX_SPEED = 7.0
 delay = 0.5
 
+[node name="ListOfCollectableSpawners" type="Node" parent="."]
+
+[node name="COLLECTABLE_SPAWNER - crystal" parent="ListOfCollectableSpawners" instance=ExtResource("3_ytk5k")]
+
 [node name="Player" parent="." instance=ExtResource("2_0xq7c")]
 unique_name_in_owner = true
 initialBulletAmmo = 20
-playerHealth = 200.0
+playerHealth = 20.0
 
 [node name="PlayerCamera" type="Camera2D" parent="Player"]
 position_smoothing_enabled = true
@@ -90,19 +94,8 @@ shape = SubResource("RectangleShape2D_px1m1")
 position = Vector2(0, 2848)
 shape = SubResource("RectangleShape2D_px1m1")
 
-[node name="Crystal" parent="." instance=ExtResource("6_adu3w")]
-position = Vector2(-315, -204)
-
-[node name="Crystal2" parent="." instance=ExtResource("6_adu3w")]
-position = Vector2(2244, -1042)
-
-[node name="Crystal3" parent="." instance=ExtResource("6_adu3w")]
-position = Vector2(1108, 415)
-
-[node name="Crystal4" parent="." instance=ExtResource("6_adu3w")]
-position = Vector2(-448, 688)
-
 [connection signal="addEnemy" from="ListOfEnemySpawners/ENEMY_SPAWNER - SquareSeeker" to="." method="add_enemy"]
+[connection signal="addCollectable" from="ListOfCollectableSpawners/COLLECTABLE_SPAWNER - crystal" to="." method="add_collectable"]
 [connection signal="createPlayerBullet" from="Player" to="." method="_on_player_create_player_bullet"]
 [connection signal="createPlayerBullet" from="Player" to="." method="_on_player_cerate_player_bullet"]
 [connection signal="gameOver" from="Player" to="." method="game_over"]

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://513s3xq8n2wl"]
+
+[ext_resource type="Script" path="res://scripts/COLLECTABLE_SPAWNER - crystal.gd" id="1_gippb"]
+[ext_resource type="PackedScene" uid="uid://dvu68t415qp6g" path="res://scenes/crystal.tscn" id="2_c8aev"]
+
+[node name="COLLECTABLE_SPAWNER - crystal" type="Node2D"]
+script = ExtResource("1_gippb")
+Crystal = ExtResource("2_c8aev")
+delay = 25.0
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
