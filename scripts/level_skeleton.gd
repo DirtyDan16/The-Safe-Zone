@@ -4,6 +4,8 @@ extends Node2D
 @onready var reset_level_button = $GUI/ResetLevelButton
 @onready var player = %Player
 @onready var safe_zones_movement_timer = $SafeZonesChangeDirectionDelay
+@onready var list_of_enemy_spawners = $ListOfEnemySpawners
+var enemySpawners: Array[Node]
 
 
 #---GAME MODIFIERS:
@@ -19,6 +21,7 @@ func _on_gui_start_game() -> void:
 	game_start();
 
 func game_start() -> void:
+
 	gameAlive = true;
 	player.setIsAlive(true);
 	

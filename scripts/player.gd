@@ -13,6 +13,7 @@ class_name Player
 @onready var slash_cooldown = $SlashCooldown
 @onready var ammo_reloading_duration = $AmmoReloadingDuration
 @onready var progress_bar = $AmmoReloading
+@onready var super_dash_duration = $SuperDashDuration
 
 @export var player_bullet: PackedScene
 
@@ -23,6 +24,7 @@ class_name Player
 @export var playerSpeed: float = 600
 @export var dashAmount: float = 300
 @export var dashSpeed: float = 2000
+@export var superDashDashMultiplier: float = 3;
 
 signal gameOver;
 signal createPlayerBullet;
@@ -218,3 +220,12 @@ func _on_slash_cooldown_timeout():
 
 func _on_ammo_reloading_duration_timeout():
 	reload_ammo()
+
+func startSuperDash():
+	super_dash_duration.start()
+	dashAmount*=superDashDashMultiplier
+
+
+
+func _on_super_dash_duration_timeout():
+	dashAmount/=superDashDashMultiplier

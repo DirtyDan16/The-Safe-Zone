@@ -124,9 +124,14 @@ one_shot = true
 [node name="AmmoReloadingDuration" type="Timer" parent="."]
 one_shot = true
 
+[node name="SuperDashDuration" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="timeout" from="I-FramesDuration" to="." method="_on_i_frames_duration_timeout"]
 [connection signal="timeout" from="DashCooldown" to="." method="_on_dash_cooldown_timeout"]
 [connection signal="timeout" from="SlashDuaration" to="." method="_on_slash_duaration_timeout"]
 [connection signal="timeout" from="SlashCooldown" to="." method="_on_slash_cooldown_timeout"]
 [connection signal="timeout" from="AmmoReloadingDuration" to="." method="_on_ammo_reloading_duration_timeout"]
+[connection signal="timeout" from="SuperDashDuration" to="." method="_on_super_dash_duration_timeout"]

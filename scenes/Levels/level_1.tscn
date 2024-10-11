@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://ihcinsspkuv8"]
+[gd_scene load_steps=9 format=3 uid="uid://ihcinsspkuv8"]
 
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_5ufpr"]
 [ext_resource type="PackedScene" uid="uid://dd4u7unrwlhvl" path="res://scenes/Player.tscn" id="2_0xq7c"]
 [ext_resource type="PackedScene" uid="uid://n61qt4ef2vkx" path="res://scenes/enemy_spawner___square_seeker.tscn" id="2_idypi"]
 [ext_resource type="PackedScene" uid="uid://b8i2hf8651ciu" path="res://scenes/gui.tscn" id="5_4usb6"]
 [ext_resource type="PackedScene" uid="uid://cffrbe1ovrnco" path="res://scenes/safe_zone.tscn" id="6_00ccs"]
+[ext_resource type="PackedScene" uid="uid://dvu68t415qp6g" path="res://scenes/crystal.tscn" id="6_adu3w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_05foh"]
 size = Vector2(619, 5005)
@@ -17,7 +18,9 @@ script = ExtResource("1_5ufpr")
 metadata/_edit_vertical_guides_ = [2507.0, -2501.0]
 metadata/_edit_horizontal_guides_ = [-2501.0, 2504.0]
 
-[node name="ENEMY_SPAWNER - SquareSeeker" parent="." instance=ExtResource("2_idypi")]
+[node name="ListOfEnemySpawners" type="Node" parent="."]
+
+[node name="ENEMY_SPAWNER - SquareSeeker" parent="ListOfEnemySpawners" instance=ExtResource("2_idypi")]
 ENEMY_SQUARE_SEEKER_MIN_SPEED = 3.0
 ENEMY_SQUARE_SEEKER_MAX_SPEED = 7.0
 delay = 0.5
@@ -25,6 +28,7 @@ delay = 0.5
 [node name="Player" parent="." instance=ExtResource("2_0xq7c")]
 unique_name_in_owner = true
 initialBulletAmmo = 20
+playerHealth = 400.0
 
 [node name="PlayerCamera" type="Camera2D" parent="Player"]
 position_smoothing_enabled = true
@@ -93,7 +97,10 @@ shape = SubResource("RectangleShape2D_px1m1")
 position = Vector2(0, 2848)
 shape = SubResource("RectangleShape2D_px1m1")
 
-[connection signal="addEnemy" from="ENEMY_SPAWNER - SquareSeeker" to="." method="add_enemy"]
+[node name="Crystal" parent="." instance=ExtResource("6_adu3w")]
+position = Vector2(-315, -204)
+
+[connection signal="addEnemy" from="ListOfEnemySpawners/ENEMY_SPAWNER - SquareSeeker" to="." method="add_enemy"]
 [connection signal="createPlayerBullet" from="Player" to="." method="_on_player_cerate_player_bullet"]
 [connection signal="createPlayerBullet" from="Player" to="." method="_on_player_create_player_bullet"]
 [connection signal="gameOver" from="Player" to="." method="game_over"]
