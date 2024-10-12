@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://qv2ql1xvacj2"]
+
+[ext_resource type="Script" path="res://scripts/BULLET_SPAWNER - TheThinLine.gd" id="1_i2bwe"]
+[ext_resource type="PackedScene" uid="uid://ds46a0pqxukgo" path="res://scenes/Bullets/bullet_the_thin_line.tscn" id="2_jol6j"]
+
+[node name="BULLET_SPAWNER - TheThinLine" type="Node2D"]
+script = ExtResource("1_i2bwe")
+TheThinLine = ExtResource("2_jol6j")
+delay = 0.3
+
+[node name="DelayBetweenBulletSpawning" type="Timer" parent="."]
+
+[node name="BulletFadeInTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="DelayBetweenBulletSpawning" to="." method="_on_delay_between_bullet_spawning_timeout"]

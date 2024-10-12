@@ -235,6 +235,7 @@ func _on_super_dash_duration_timeout():
 	hasPowerupSuperDash = false;
 	dashAmount/=superDashDashMultiplier
 
-func _on_player_detection_area_area_entered(bullet: EnviornmentBullet):
-	if isCurrentlyDashing or hasInvincibleFrames: return
+func _on_player_detection_area_area_entered(area: Area2D):
+	if !area is EnviornmentBullet or isCurrentlyDashing or hasInvincibleFrames: return
+	var bullet: EnviornmentBullet = area
 	taken_damage(bullet.DamageDealing)

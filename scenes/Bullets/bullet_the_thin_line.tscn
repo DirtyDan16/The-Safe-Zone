@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://ds46a0pqxukgo"]
+
+[ext_resource type="Script" path="res://scripts/bullet_the_thin_line.gd" id="1_td5ki"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xwehl"]
+size = Vector2(19, 5857)
+
+[node name="BULLET-TheThinLine" type="Area2D"]
+z_index = 5
+collision_mask = 0
+script = ExtResource("1_td5ki")
+lifespan = 1.0
+metadata/_edit_vertical_guides_ = [20.0, -20.0]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -6.5)
+shape = SubResource("RectangleShape2D_xwehl")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -10.0
+offset_top = -2935.0
+offset_right = 10.0
+offset_bottom = 2922.0

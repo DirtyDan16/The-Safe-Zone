@@ -7,6 +7,8 @@ extends Node2D
 @onready var list_of_enemy_spawners = $ListOfEnemySpawners
 @onready var list_of_collectable_spawners = $ListOfCollectableSpawners
 @onready var list_of_bullet_hell_projectiles = $ListOfBulletHellProjectiles
+@onready var swap_out_environment_bullet_type_delay = $SwapOutEnvironmentBulletTypeDelay
+
 
 var enemySpawners: Array[Node]
 var collectableSpawners: Array[Node];
@@ -21,6 +23,10 @@ var SAFE_ZONE_MAX_SPEED: float
 #--------VAR
 var gameAlive: bool = false;
 
+func _ready():
+	enemySpawners = list_of_enemy_spawners.get_children()
+	collectableSpawners = list_of_collectable_spawners.get_children()
+	bulletHellProjectiles = list_of_bullet_hell_projectiles.get_children()
 
 func _on_gui_start_game() -> void:
 	game_start();
@@ -34,10 +40,13 @@ func game_start() -> void:
 	_on_safe_zones_change_direction_delay_timeout()
 	safe_zones_movement_timer.start()
 	
+	swap_out_environment_bullet_type_delay.start()
 
 func game_over() -> void:
 	GlobalSignals.StopScore.emit()
 	print("game over")
+	swap_out_environment_bullet_type_delay.stop()
+	
 	reset_level_button.visible = true;
 
 func _physics_process(delta) -> void:
