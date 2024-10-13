@@ -17,7 +17,7 @@ signal addBullet;
 func _ready() -> void:
 	spawnerTimer.wait_time = delay
 	var bullet: EnviornmentBullet = GridSquareBullet.instantiate()
-	bullet_fade_in_timer.wait_time = bullet.FADE_IN_DURATION
+	bullet_fade_in_timer.wait_time = bullet.warningSignDuration
 
 func activate() -> void:
 	spawnerTimer.start();

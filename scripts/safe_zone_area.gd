@@ -5,12 +5,9 @@ extends Area2D
 
 func _on_body_exited(body: Player) -> void:
 	if body.getDashStatus() == false:
-		print("dashStatus = ",body.getDashStatus())
 		body.taken_damage(1);
-		print("Player's HP is: ",body.getHP());
 	else: 
 		while true: #this is a checker for if the player is still invincible via dashing
-			push_warning("player dashing outside of zone");
 			await get_tree().create_timer(0.02).timeout
 			if body.getDashStatus() == false:
 				_on_out_of_zone_taking_damage_delay_timeout()

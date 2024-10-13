@@ -64,8 +64,10 @@ func _on_safe_zones_change_direction_delay_timeout():
 func add_enemy(Enemy: Object) -> void:
 	add_child(Enemy)
 
-func add_collectable(Collectable: Object) -> void:
+func add_collectable(Collectable: Object,lifespan: float) -> void:
 	add_child(Collectable)
+	await get_tree().create_timer(lifespan).timeout
+	if (Collectable != null): Collectable.queue_free()
 
 func add_bullet(Bullet: Object,lifespan: float) -> void:
 	add_child(Bullet)

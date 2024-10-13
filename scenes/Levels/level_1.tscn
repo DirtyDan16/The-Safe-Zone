@@ -1,13 +1,15 @@
-[gd_scene load_steps=11 format=3 uid="uid://ihcinsspkuv8"]
+[gd_scene load_steps=13 format=3 uid="uid://ihcinsspkuv8"]
 
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_5ufpr"]
 [ext_resource type="PackedScene" uid="uid://dd4u7unrwlhvl" path="res://scenes/Player.tscn" id="2_0xq7c"]
 [ext_resource type="PackedScene" uid="uid://n61qt4ef2vkx" path="res://scenes/enemy_spawner___square_seeker.tscn" id="2_idypi"]
-[ext_resource type="PackedScene" uid="uid://513s3xq8n2wl" path="res://scenes/collectable_spawner___crystal.tscn" id="3_ytk5k"]
+[ext_resource type="PackedScene" uid="uid://513s3xq8n2wl" path="res://scenes/collectable_spawner___RegularCollectables.tscn" id="3_yl8al"]
 [ext_resource type="PackedScene" uid="uid://njgln7mgwjca" path="res://scenes/bullet_spawner___grid_square_bullet.tscn" id="4_p4fx2"]
 [ext_resource type="PackedScene" uid="uid://b8i2hf8651ciu" path="res://scenes/gui.tscn" id="5_4usb6"]
+[ext_resource type="PackedScene" uid="uid://dvu68t415qp6g" path="res://scenes/crystal.tscn" id="5_bj7ri"]
 [ext_resource type="PackedScene" uid="uid://qv2ql1xvacj2" path="res://scenes/bullet_spawner___the_thin_line.tscn" id="5_chwix"]
 [ext_resource type="PackedScene" uid="uid://cffrbe1ovrnco" path="res://scenes/safe_zone.tscn" id="6_00ccs"]
+[ext_resource type="PackedScene" uid="uid://dnkkvtncb3qme" path="res://scenes/heart_collectable.tscn" id="9_r12m6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_05foh"]
 size = Vector2(619, 5005)
@@ -25,11 +27,16 @@ metadata/_edit_horizontal_guides_ = [-2501.0, 2504.0]
 [node name="ENEMY_SPAWNER - SquareSeeker" parent="ListOfEnemySpawners" instance=ExtResource("2_idypi")]
 ENEMY_SQUARE_SEEKER_MIN_SPEED = 3.0
 ENEMY_SQUARE_SEEKER_MAX_SPEED = 7.0
+delay = 0.75
 
 [node name="ListOfCollectableSpawners" type="Node" parent="."]
 
-[node name="COLLECTABLE_SPAWNER - crystal" parent="ListOfCollectableSpawners" instance=ExtResource("3_ytk5k")]
-delay = 5.0
+[node name="COLLECTABLE_SPAWNER - RegularCollectables" parent="ListOfCollectableSpawners" instance=ExtResource("3_yl8al")]
+Collectable = ExtResource("9_r12m6")
+delay = 35.0
+
+[node name="COLLECTABLE_SPAWNER - RegularCollectables2" parent="ListOfCollectableSpawners" instance=ExtResource("3_yl8al")]
+Collectable = ExtResource("5_bj7ri")
 
 [node name="ListOfBulletHellProjectiles" type="Node" parent="."]
 
@@ -116,7 +123,8 @@ wait_time = 5.0
 wait_time = 10.0
 
 [connection signal="addEnemy" from="ListOfEnemySpawners/ENEMY_SPAWNER - SquareSeeker" to="." method="add_enemy"]
-[connection signal="addCollectable" from="ListOfCollectableSpawners/COLLECTABLE_SPAWNER - crystal" to="." method="add_collectable"]
+[connection signal="addCollectable" from="ListOfCollectableSpawners/COLLECTABLE_SPAWNER - RegularCollectables" to="." method="add_collectable"]
+[connection signal="addCollectable" from="ListOfCollectableSpawners/COLLECTABLE_SPAWNER - RegularCollectables2" to="." method="add_collectable"]
 [connection signal="addBullet" from="ListOfBulletHellProjectiles/BULLET_SPAWNER - GridSquareBullet" to="." method="add_bullet"]
 [connection signal="addBullet" from="ListOfBulletHellProjectiles/BULLET_SPAWNER - TheThinLine" to="." method="add_bullet"]
 [connection signal="createPlayerBullet" from="Player" to="." method="_on_player_cerate_player_bullet"]

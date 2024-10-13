@@ -7,8 +7,6 @@ extends Node2D
 @onready var spawnerTimer = $DelayBetweenBulletSpawning
 @onready var bullet_fade_in_timer = $BulletFadeInTimer
 
-
-
 var canBulletSpawn: bool = false;
 var brightness_factor = 0.4
 
@@ -17,7 +15,7 @@ signal addBullet;
 func _ready() -> void:
 	spawnerTimer.wait_time = delay
 	var bullet: EnviornmentBullet = TheThinLine.instantiate()
-	bullet_fade_in_timer.wait_time = bullet.FADE_IN_DURATION
+	bullet_fade_in_timer.wait_time = bullet.warningSignDuration
 
 func activate() -> void:
 	spawnerTimer.start();

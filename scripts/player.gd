@@ -108,10 +108,8 @@ func _input(event) -> void:
 		if (event.is_action_pressed("Slash") and !isOnSlashCooldown and !isSlashing):
 			player_slash()
 		elif (event.is_action_pressed("Shoot") and !isOnShootCooldown):
-			print("shoot")
 			player_shoot()
 			if bulletAmmo <= 0:
-				print("reloading")
 				isOnShootCooldown = true;
 				progress_bar.visible = true;
 				ammo_reloading_duration.start()
@@ -237,5 +235,5 @@ func _on_super_dash_duration_timeout():
 
 func _on_player_detection_area_area_entered(area: Area2D):
 	if !area is EnviornmentBullet or isCurrentlyDashing or hasInvincibleFrames: return
-	var bullet: EnviornmentBullet = area
+	var bullet: EnviornmentBullet = area as EnviornmentBullet
 	taken_damage(bullet.DamageDealing)

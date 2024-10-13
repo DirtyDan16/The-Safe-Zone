@@ -9,6 +9,7 @@ size = Vector2(100, 100)
 z_index = 5
 collision_mask = 0
 script = ExtResource("1_k2m46")
+warningSignDuration = 1.5
 metadata/_edit_vertical_guides_ = [-30.0, 29.0]
 metadata/_edit_horizontal_guides_ = [-30.0, 30.0]
 metadata/DamageAmount = 3.0
