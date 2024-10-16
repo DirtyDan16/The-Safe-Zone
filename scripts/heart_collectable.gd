@@ -2,7 +2,7 @@ extends Area2D
 
 @export var pointsForCollecting: int = 200;
 @export var lifespan: float = 90;
-@export var healthIncreaseAmount: float = 90;
+@export var healthIncreaseAmount: float = 5;
 @export var radiusOfSpawnRange: Array[float] = [700,1000]
 
 func _on_body_entered(body: PhysicsBody2D):

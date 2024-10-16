@@ -2,11 +2,19 @@ extends Spawner
 
 @export var EnemyScene: PackedScene
 @export var enemySpeedRandomRange: Vector2 = Vector2(3,7)
-@export var enemySpawnInRadiusRandomRange: Vector2 = Vector2(400,700)
+@export var enemySpawnInRadiusRandomRange: Vector2 = Vector2(1000,1400)
+
+var player: Player
+
+func _ready():
+	super._ready()
+	player = %Player
 
 signal addEnemy;
 
-func _on_square_seeker_spawner_timeout() -> void:
+
+
+func _on_spawning_cooldown_timeout() -> void:
 	#print("enemy spawn")
 	var enemy: Enemy = EnemyScene.instantiate();
 	var radius: float = randf_range(enemySpawnInRadiusRandomRange[0], enemySpawnInRadiusRandomRange[1])  
@@ -17,4 +25,5 @@ func _on_square_seeker_spawner_timeout() -> void:
 	
 	enemy.position = Vector2(x, y)  + playerPos
 	enemy.setSpeed(enemySpeedRandomRange[0],enemySpeedRandomRange[1]);
+	enemy.initialize(player) #giving the enemy the knowledge of the player node so it can track it
 	addEnemy.emit(enemy)

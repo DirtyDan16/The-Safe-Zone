@@ -3,10 +3,10 @@
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_5ufpr"]
 [ext_resource type="PackedScene" uid="uid://dd4u7unrwlhvl" path="res://scenes/Player.tscn" id="2_0xq7c"]
 [ext_resource type="PackedScene" uid="uid://n61qt4ef2vkx" path="res://scenes/enemy_spawner___square_seeker.tscn" id="2_idypi"]
+[ext_resource type="PackedScene" uid="uid://c0wyikdhtdwx6" path="res://scenes/enemy_spawner___the_waving_creep.tscn" id="3_7ksmx"]
 [ext_resource type="PackedScene" uid="uid://513s3xq8n2wl" path="res://scenes/collectable_spawner___RegularCollectables.tscn" id="3_yl8al"]
 [ext_resource type="PackedScene" uid="uid://njgln7mgwjca" path="res://scenes/bullet_spawner___grid_square_bullet.tscn" id="4_p4fx2"]
 [ext_resource type="PackedScene" uid="uid://b8i2hf8651ciu" path="res://scenes/gui.tscn" id="5_4usb6"]
-[ext_resource type="PackedScene" uid="uid://dvu68t415qp6g" path="res://scenes/crystal.tscn" id="5_bj7ri"]
 [ext_resource type="PackedScene" uid="uid://qv2ql1xvacj2" path="res://scenes/bullet_spawner___the_thin_line.tscn" id="5_chwix"]
 [ext_resource type="PackedScene" uid="uid://cffrbe1ovrnco" path="res://scenes/safe_zone.tscn" id="6_00ccs"]
 [ext_resource type="PackedScene" uid="uid://dnkkvtncb3qme" path="res://scenes/heart_collectable.tscn" id="9_r12m6"]
@@ -19,15 +19,19 @@ size = Vector2(5018, 692)
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_5ufpr")
+SAFE_ZONE_MIN_SPEED = 100.0
+SAFE_ZONE_MAX_SPEED = 150.0
 metadata/_edit_vertical_guides_ = [2507.0, -2501.0]
 metadata/_edit_horizontal_guides_ = [-2501.0, 2504.0]
 
 [node name="ListOfEnemySpawners" type="Node" parent="."]
 
 [node name="ENEMY_SPAWNER - SquareSeeker" parent="ListOfEnemySpawners" instance=ExtResource("2_idypi")]
-ENEMY_SQUARE_SEEKER_MIN_SPEED = 3.0
-ENEMY_SQUARE_SEEKER_MAX_SPEED = 7.0
 delay = 0.75
+
+[node name="ENEMY_SPAWNER - TheWavingCreep" parent="ListOfEnemySpawners" instance=ExtResource("3_7ksmx")]
+enemySpeedRandomRange = Vector2(70, 170)
+delay = 3.5
 
 [node name="ListOfCollectableSpawners" type="Node" parent="."]
 
@@ -36,7 +40,6 @@ Collectable = ExtResource("9_r12m6")
 delay = 35.0
 
 [node name="COLLECTABLE_SPAWNER - RegularCollectables2" parent="ListOfCollectableSpawners" instance=ExtResource("3_yl8al")]
-Collectable = ExtResource("5_bj7ri")
 
 [node name="ListOfBulletHellProjectiles" type="Node" parent="."]
 
@@ -47,7 +50,6 @@ Collectable = ExtResource("5_bj7ri")
 [node name="Player" parent="." instance=ExtResource("2_0xq7c")]
 unique_name_in_owner = true
 initialBulletAmmo = 20
-playerHealth = 20.0
 
 [node name="PlayerCamera" type="Camera2D" parent="Player"]
 position_smoothing_enabled = true
@@ -93,7 +95,7 @@ offset_bottom = 4245.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.000528476, 0, 0.362977, 1)
+color = Color(0.00404626, 0, 0.921044, 1)
 metadata/_edit_lock_ = true
 
 [node name="Borders" type="StaticBody2D" parent="." groups=["Borders"]]
@@ -122,18 +124,24 @@ wait_time = 5.0
 [node name="SwapOutEnvironmentBulletTypeDelay" type="Timer" parent="."]
 wait_time = 10.0
 
+[node name="SwapOutEnemyTypeDelay" type="Timer" parent="."]
+wait_time = 11.0
+
 [connection signal="addEnemy" from="ListOfEnemySpawners/ENEMY_SPAWNER - SquareSeeker" to="." method="add_enemy"]
+[connection signal="addEnemy" from="ListOfEnemySpawners/ENEMY_SPAWNER - TheWavingCreep" to="." method="add_enemy"]
 [connection signal="addCollectable" from="ListOfCollectableSpawners/COLLECTABLE_SPAWNER - RegularCollectables" to="." method="add_collectable"]
 [connection signal="addCollectable" from="ListOfCollectableSpawners/COLLECTABLE_SPAWNER - RegularCollectables2" to="." method="add_collectable"]
 [connection signal="addBullet" from="ListOfBulletHellProjectiles/BULLET_SPAWNER - GridSquareBullet" to="." method="add_bullet"]
 [connection signal="addBullet" from="ListOfBulletHellProjectiles/BULLET_SPAWNER - TheThinLine" to="." method="add_bullet"]
 [connection signal="createPlayerBullet" from="Player" to="." method="_on_player_cerate_player_bullet"]
 [connection signal="createPlayerBullet" from="Player" to="." method="_on_player_create_player_bullet"]
+[connection signal="duplicateCamera" from="Player" to="." method="_on_player_duplicate_camera"]
 [connection signal="gameOver" from="Player" to="." method="game_over"]
 [connection signal="ResetGame" from="GUI" to="." method="_on_gui_reset_game"]
 [connection signal="StartGame" from="GUI" to="." method="_on_gui_start_game"]
 [connection signal="timeout" from="SafeZonesChangeDirectionDelay" to="." method="_on_safe_zones_change_direction_delay_timeout"]
 [connection signal="timeout" from="SwapOutEnvironmentBulletTypeDelay" to="." method="_on_swap_out_environment_bullet_type_delay_timeout"]
+[connection signal="timeout" from="SwapOutEnemyTypeDelay" to="." method="_on_swap_out_enemy_type_delay_timeout"]
 
 [editable path="SafeZone"]
 [editable path="SafeZone2"]

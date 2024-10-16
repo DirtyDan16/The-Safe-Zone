@@ -1,20 +1,21 @@
 [gd_scene load_steps=5 format=3 uid="uid://ccdmw5vr02isi"]
 
-[ext_resource type="Script" path="res://scripts/ENEMY-square_seeker.gd" id="1_mxrp5"]
-[ext_resource type="PackedScene" uid="uid://d1wcx54gge80y" path="res://scenes/enemy_homing_component.tscn" id="2_gigk1"]
-[ext_resource type="PackedScene" uid="uid://xblt6kwttnob" path="res://scenes/enemy_hitbox_component.tscn" id="3_fekd2"]
+[ext_resource type="Script" path="res://scripts/ENEMY-square_seeker.gd" id="1_rfy2c"]
+[ext_resource type="PackedScene" uid="uid://d1wcx54gge80y" path="res://scenes/enemy_homing_component.tscn" id="2_qfqiu"]
+[ext_resource type="PackedScene" uid="uid://xblt6kwttnob" path="res://scenes/enemy_hitbox_component.tscn" id="3_njkse"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rxtvr"]
 size = Vector2(40, 39)
 
-[node name="SquareSeeker" type="Node2D" groups=["Enemies"]]
-script = ExtResource("1_mxrp5")
+[node name="ENEMY-SquareSeeker" type="Node2D" groups=["Enemies"]]
+script = ExtResource("1_rfy2c")
 scoreForEliminating = 5
+health = 2.0
 metadata/_edit_vertical_guides_ = [200.0, 500.0, 348.0]
 
-[node name="EnemyHomingComponent" parent="." instance=ExtResource("2_gigk1")]
+[node name="EnemyHomingComponent" parent="." instance=ExtResource("2_qfqiu")]
 
-[node name="EnemyHitboxComponent" parent="." groups=["EnemyHitbox"] instance=ExtResource("3_fekd2")]
+[node name="EnemyHitboxComponent" parent="." groups=["EnemyHitbox"] instance=ExtResource("3_njkse")]
 
 [node name="Hitbox" type="CollisionShape2D" parent="EnemyHitboxComponent"]
 position = Vector2(0, -0.5)
@@ -26,10 +27,6 @@ offset_top = -20.0
 offset_right = 20.0
 offset_bottom = 20.0
 color = Color(0.462745, 0.00784314, 0, 1)
-
-[node name="CheckForIsHomingDelay" type="Timer" parent="."]
-unique_name_in_owner = true
-wait_time = 0.02
 
 [connection signal="collidedWithPlayer" from="." to="." method="_on_collided_with_player"]
 [connection signal="changeBrightness" from="EnemyHomingComponent" to="." method="change_brightness"]

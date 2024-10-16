@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://n61qt4ef2vkx"]
 
 [ext_resource type="Script" path="res://scripts/ENEMY_SPAWNER - SquareSeeker.gd" id="1_7gjgn"]
-[ext_resource type="PackedScene" uid="uid://ccdmw5vr02isi" path="res://scenes/Enemies/square_seeker.tscn" id="2_j0xl0"]
+[ext_resource type="PackedScene" uid="uid://ccdmw5vr02isi" path="res://scenes/Enemies/enemy_square_seeker.tscn" id="2_rwoas"]
 
 [node name="ENEMY_SPAWNER - SquareSeeker" type="Node2D"]
 script = ExtResource("1_7gjgn")
-SquareSeeker = ExtResource("2_j0xl0")
+EnemyScene = ExtResource("2_rwoas")
 
-[node name="SquareSeekerSpawner" type="Timer" parent="."]
+[node name="spawningCooldown" type="Timer" parent="."]
 
-[connection signal="timeout" from="SquareSeekerSpawner" to="." method="_on_square_seeker_spawner_timeout"]
+[connection signal="timeout" from="spawningCooldown" to="." method="_on_square_seeker_spawner_timeout"]

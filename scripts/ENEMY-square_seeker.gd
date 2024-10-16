@@ -1,17 +1,6 @@
-extends Node2D
-
+extends Enemy
 
 signal collidedWithPlayer
-
-#------CONST
-var _SPEED: float = 3
-@export var damageOnContact: int = 1
-@export var scoreForEliminating: int = 50
-var health: float = 2;
-
-
-func setSpeed(minSpeed,maxSpeed) -> void:
-	_SPEED = randf_range(minSpeed,maxSpeed)
 
 
 func change_brightness(brightness_factor: float):
@@ -20,7 +9,7 @@ func change_brightness(brightness_factor: float):
 
 
 func _on_homing_move_enemy_towards_player(player: Player) -> void:
-	position += (player.position - position).normalized() * _SPEED
+	position += (player.position - position).normalized() * speed
 
 
 func _on_hitbox_collided_with_player(player: Player) -> void:

@@ -28,6 +28,7 @@ class_name Player
 
 signal gameOver;
 signal createPlayerBullet;
+signal duplicateCamera;
 
 
 #--------VAR
@@ -145,9 +146,9 @@ func _physics_process(delta) -> void:
 	if getSlashStatus() == true:
 		var listOfEnemies: Array = slash_area.get_overlapping_areas()
 		
-		for Enemy in listOfEnemies:
-			if Enemy.is_in_group("EnemyHitbox"):
-				Enemy.got_slashed_by_player()
+		for enemy in listOfEnemies:
+			if enemy.is_in_group("EnemyHitbox"):
+				enemy.got_slashed_by_player()
 			
 	
 	health_text.text = str(playerHealth);

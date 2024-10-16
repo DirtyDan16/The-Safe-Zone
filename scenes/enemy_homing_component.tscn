@@ -12,5 +12,10 @@ script = ExtResource("1_wafhg")
 shape = SubResource("CircleShape2D_0teca")
 debug_color = Color(0.870588, 0.972549, 1, 0)
 
+[node name="CheckForIsHomingDelay" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.02
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="CheckForIsHomingDelay" to="." method="_on_check_for_is_homing_delay_timeout"]

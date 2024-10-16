@@ -1,10 +1,7 @@
-extends Node2D
+extends Spawner
 
 @export var TheThinLine: PackedScene
 
-@export var delay: float = 0.2 ##time between each spawn of said bullet
-
-@onready var spawnerTimer = $DelayBetweenBulletSpawning
 @onready var bullet_fade_in_timer = $BulletFadeInTimer
 
 var canBulletSpawn: bool = false;
@@ -13,18 +10,11 @@ var brightness_factor = 0.4
 signal addBullet;
 
 func _ready() -> void:
-	spawnerTimer.wait_time = delay
+	super._ready()
 	var bullet: EnviornmentBullet = TheThinLine.instantiate()
 	bullet_fade_in_timer.wait_time = bullet.warningSignDuration
 
-func activate() -> void:
-	spawnerTimer.start();
-
-func deactivate() -> void:
-	spawnerTimer.stop();
-
-
-func _on_delay_between_bullet_spawning_timeout() -> void:
+func _on_spawning_cooldown_timeout() -> void:
 	var bullet: EnviornmentBullet = TheThinLine.instantiate()
 	#gives the bullet a random position based on a grid like formation
 

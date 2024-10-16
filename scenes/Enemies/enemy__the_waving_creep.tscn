@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://stdjnysswqwo"]
+
+[ext_resource type="Script" path="res://scripts/enemy__the_waving_creep.gd" id="1_24pya"]
+[ext_resource type="PackedScene" uid="uid://xblt6kwttnob" path="res://scenes/enemy_hitbox_component.tscn" id="2_c5px4"]
+[ext_resource type="Texture2D" uid="uid://dipgy8pn6s11m" path="res://assets/Enemy1.png" id="3_vjfe2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gt7sv"]
+radius = 52.0
+height = 126.0
+
+[node name="ENEMY- TheWavingCreep" type="Node2D"]
+script = ExtResource("1_24pya")
+speed = 300.0
+
+[node name="EnemyHitboxComponent" parent="." instance=ExtResource("2_c5px4")]
+
+[node name="Hitbox" type="CollisionShape2D" parent="EnemyHitboxComponent"]
+shape = SubResource("CapsuleShape2D_gt7sv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("3_vjfe2")
+
+[connection signal="collidedWithPlayer" from="EnemyHitboxComponent" to="." method="_on_enemy_hitbox_component_collided_with_player"]
+[connection signal="gotShotByBullet" from="EnemyHitboxComponent" to="." method="_on_enemy_hitbox_component_got_shot_by_bullet"]

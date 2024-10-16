@@ -1,11 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://513s3xq8n2wl"]
+[gd_scene load_steps=3 format=3 uid="uid://513s3xq8n2wl"]
 
 [ext_resource type="Script" path="res://scripts/COLLECTABLE_SPAWNER - regularCollectables.gd" id="1_ed1lj"]
+[ext_resource type="PackedScene" uid="uid://dvu68t415qp6g" path="res://scenes/crystal.tscn" id="2_n6md4"]
 
 [node name="COLLECTABLE_SPAWNER - RegularCollectables" type="Node2D"]
 script = ExtResource("1_ed1lj")
+Collectable = ExtResource("2_n6md4")
 delay = 25.0
 
-[node name="Timer" type="Timer" parent="."]
+[node name="spawningCooldown" type="Timer" parent="."]
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="spawningCooldown" to="." method="_on_spawning_cooldown_timeout"]
