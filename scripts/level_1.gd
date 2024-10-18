@@ -1,13 +1,12 @@
 extends "res://scripts/level_skeleton.gd"
 
-#HIGH SCORE: 7380
+#HIGH SCORE: 7620
 
 func _ready():
 	super._ready()
 
 func game_start():
 	super.game_start();
-	$"ListOfEnemySpawners/ENEMY_SPAWNER - TheWavingCreep".addInstance()
 func game_over():
 	super.game_over()
 

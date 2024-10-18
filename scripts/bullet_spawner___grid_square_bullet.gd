@@ -4,7 +4,6 @@ extends Spawner
 
 @onready var bullet_fade_in_timer = $BulletFadeInTimer
 
-
 var canBulletSpawn: bool = false;
 var brightness_factor = 0.4
 
