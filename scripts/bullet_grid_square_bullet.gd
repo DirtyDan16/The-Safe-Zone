@@ -1,8 +1,8 @@
 extends EnviornmentBullet
 
-@export var GRID_SQUARE_BULLET_LENGTH: float = 100
+@export var gridSquareBulletLength: float = 100
 var baseSize : float = 100;
 
 func _ready():
-	var Scale : float = GRID_SQUARE_BULLET_LENGTH/baseSize
+	var Scale : float = gridSquareBulletLength/baseSize
 	scale = Vector2(Scale,Scale)

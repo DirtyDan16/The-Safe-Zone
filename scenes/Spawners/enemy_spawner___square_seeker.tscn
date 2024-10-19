@@ -6,6 +6,9 @@
 [node name="ENEMY_SPAWNER - SquareSeeker" type="Node2D"]
 script = ExtResource("1_7gjgn")
 EnemyScene = ExtResource("2_rwoas")
+enemySpeedRandomRange = null
+enemySpawnInRadiusRandomRange = null
+delay = null
 
 [node name="spawningCooldown" type="Timer" parent="."]
 

@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_5ufpr"]
 [ext_resource type="PackedScene" uid="uid://dd4u7unrwlhvl" path="res://scenes/Player.tscn" id="2_0xq7c"]
-[ext_resource type="PackedScene" uid="uid://n61qt4ef2vkx" path="res://scenes/enemy_spawner___square_seeker.tscn" id="2_idypi"]
-[ext_resource type="PackedScene" uid="uid://c0wyikdhtdwx6" path="res://scenes/enemy_spawner___the_waving_creep.tscn" id="3_7ksmx"]
-[ext_resource type="PackedScene" uid="uid://513s3xq8n2wl" path="res://scenes/collectable_spawner___RegularCollectables.tscn" id="3_yl8al"]
-[ext_resource type="PackedScene" uid="uid://njgln7mgwjca" path="res://scenes/bullet_spawner___grid_square_bullet.tscn" id="4_p4fx2"]
+[ext_resource type="PackedScene" uid="uid://n61qt4ef2vkx" path="res://scenes/Spawners/enemy_spawner___square_seeker.tscn" id="2_idypi"]
+[ext_resource type="PackedScene" uid="uid://c0wyikdhtdwx6" path="res://scenes/Spawners/enemy_spawner___the_waving_creep.tscn" id="3_7ksmx"]
+[ext_resource type="PackedScene" uid="uid://513s3xq8n2wl" path="res://scenes/Spawners/collectable_spawner___RegularCollectables.tscn" id="3_yl8al"]
+[ext_resource type="PackedScene" uid="uid://njgln7mgwjca" path="res://scenes/Spawners/bullet_spawner___grid_square_bullet.tscn" id="4_p4fx2"]
 [ext_resource type="PackedScene" uid="uid://b8i2hf8651ciu" path="res://scenes/gui.tscn" id="5_4usb6"]
-[ext_resource type="PackedScene" uid="uid://qv2ql1xvacj2" path="res://scenes/bullet_spawner___the_thin_line.tscn" id="5_chwix"]
+[ext_resource type="PackedScene" uid="uid://qv2ql1xvacj2" path="res://scenes/Spawners/bullet_spawner___the_thin_line.tscn" id="5_chwix"]
 [ext_resource type="PackedScene" uid="uid://cffrbe1ovrnco" path="res://scenes/safe_zone.tscn" id="6_00ccs"]
 [ext_resource type="PackedScene" uid="uid://dnkkvtncb3qme" path="res://scenes/heart_collectable.tscn" id="9_r12m6"]
 
@@ -44,12 +44,19 @@ delay = 35.0
 [node name="ListOfBulletHellProjectiles" type="Node" parent="."]
 
 [node name="BULLET_SPAWNER - GridSquareBullet" parent="ListOfBulletHellProjectiles" instance=ExtResource("4_p4fx2")]
+DamageDealing = 4.0
+lifespan = 5.0
+warningSignDuration = 1.5
 
-[node name="BULLET_SPAWNER - TheThinLine" parent="." instance=ExtResource("5_chwix")]
+[node name="BULLET_SPAWNER - TheThinLine" parent="ListOfBulletHellProjectiles" instance=ExtResource("5_chwix")]
+DamageDealing = 2.0
+lifespan = 1.5
+warningSignDuration = 1.0
 
 [node name="Player" parent="." instance=ExtResource("2_0xq7c")]
 unique_name_in_owner = true
 initialBulletAmmo = 20
+playerHealth = 20.0
 
 [node name="PlayerCamera" type="Camera2D" parent="Player"]
 position_smoothing_enabled = true
@@ -132,7 +139,7 @@ wait_time = 11.0
 [connection signal="addCollectable" from="ListOfCollectableSpawners/COLLECTABLE_SPAWNER - RegularCollectables" to="." method="add_collectable"]
 [connection signal="addCollectable" from="ListOfCollectableSpawners/COLLECTABLE_SPAWNER - RegularCollectables2" to="." method="add_collectable"]
 [connection signal="addBullet" from="ListOfBulletHellProjectiles/BULLET_SPAWNER - GridSquareBullet" to="." method="add_bullet"]
-[connection signal="addBullet" from="BULLET_SPAWNER - TheThinLine" to="." method="add_bullet"]
+[connection signal="addBullet" from="ListOfBulletHellProjectiles/BULLET_SPAWNER - TheThinLine" to="." method="add_bullet"]
 [connection signal="createPlayerBullet" from="Player" to="." method="_on_player_cerate_player_bullet"]
 [connection signal="createPlayerBullet" from="Player" to="." method="_on_player_create_player_bullet"]
 [connection signal="duplicateCamera" from="Player" to="." method="_on_player_duplicate_camera"]

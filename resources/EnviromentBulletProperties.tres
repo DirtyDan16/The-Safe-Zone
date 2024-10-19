@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dqtbx12hyehdu"]
+
+[sub_resource type="GDScript" id="GDScript_r8j6r"]
+script/source = "extends Resource
+
+@export var DamageDealing: float = 1;
+@export var lifespan: float = 5;
+@export var speed: float = 0;
+@export var warningSignDuration: float = 0"
+
+[resource]
+script = SubResource("GDScript_r8j6r")
+DamageDealing = 1.0
+lifespan = 5.0
+speed = 0.0
+warningSignDuration = 0.0

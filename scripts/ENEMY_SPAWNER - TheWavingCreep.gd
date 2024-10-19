@@ -1,4 +1,4 @@
-extends Spawner
+extends EnvironmentBulletSpawner
 
 @export var EnemyScene: PackedScene
 @export var enemySpeedRandomRange: Vector2 = Vector2(3,7)

@@ -238,3 +238,4 @@ func _on_player_detection_area_area_entered(area: Area2D):
 	if !area is EnviornmentBullet or isCurrentlyDashing or hasInvincibleFrames: return
 	var bullet: EnviornmentBullet = area as EnviornmentBullet
 	taken_damage(bullet.DamageDealing)
+	#print(bullet.DamageDealing)
