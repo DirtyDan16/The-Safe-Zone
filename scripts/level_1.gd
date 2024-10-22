@@ -4,7 +4,6 @@ extends "res://scripts/level_skeleton.gd"
 
 func _ready():
 	super._ready()
-
 func game_start():
 	super.game_start();
 func game_over():

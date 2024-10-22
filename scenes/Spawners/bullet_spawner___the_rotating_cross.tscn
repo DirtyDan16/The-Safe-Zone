@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://ce0fb370eqiog"]
+
+[ext_resource type="Script" path="res://scripts/bullet_spawner___the_rotating_cross.gd" id="1_lo3to"]
+[ext_resource type="PackedScene" uid="uid://c0ka8tsogep3f" path="res://scenes/Bullets/bullet_the_rotating_cross.tscn" id="2_6iu6s"]
+
+[node name="BULLET_SPAWNER - TheRotatingCross" type="Node2D"]
+script = ExtResource("1_lo3to")
+TheRotatingCross = ExtResource("2_6iu6s")
+DamageDealing = 1.0
+lifespan = 4.0
+speed = null
+warningSignDuration = 1.5
+rotationSpeed = 1.25
+randomizeSpawnOfBulletInACircle_RANGE = Array[float]([500.0, 750.0])
+delay = 0.75
+
+[node name="spawningCooldown" type="Timer" parent="."]
+
+[node name="warningBulletLifespan" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="spawningCooldown" to="." method="_on_spawning_cooldown_timeout"]
+[connection signal="timeout" from="warningBulletLifespan" to="." method="_on_bullet_fade_in_timer_timeout"]

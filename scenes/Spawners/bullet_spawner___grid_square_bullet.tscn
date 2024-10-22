@@ -10,7 +10,7 @@ delay = 0.2
 
 [node name="spawningCooldown" type="Timer" parent="."]
 
-[node name="BulletFadeInTimer" type="Timer" parent="."]
+[node name="warningBulletLifespan" type="Timer" parent="."]
 one_shot = true
 
 [connection signal="timeout" from="spawningCooldown" to="." method="_on_spawning_cooldown_timeout"]

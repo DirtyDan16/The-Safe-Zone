@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0ka8tsogep3f"]
+
+[ext_resource type="Script" path="res://scripts/bullet_the_rotating_cross.gd" id="1_qw4x1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nn4bw"]
+size = Vector2(476, 20)
+
+[node name="BULLET-TheRotatingCross" type="Area2D"]
+z_index = 5
+collision_mask = 0
+script = ExtResource("1_qw4x1")
+metadata/_edit_vertical_guides_ = [20.0, -20.0]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_nn4bw")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_nn4bw")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -238.0
+offset_top = -9.5
+offset_right = 238.0
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(238, 9.5)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -238.0
+offset_top = -9.5
+offset_right = 238.0
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.5708
+pivot_offset = Vector2(238, 9.5)

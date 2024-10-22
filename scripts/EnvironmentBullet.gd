@@ -1,9 +1,12 @@
 extends Area2D
-
 class_name EnviornmentBullet
 
-@export var DamageDealing: float = 1;
-@export var lifespan: float = 5;
-@export var speed: float = 0;
-@export var warningSignDuration: float = 0
+@export var DamageDealing: float;
+@export var lifespan: float;
+@export var speed: float;
+@export var warningSignDuration: float
+@export var rotatingSpeed: float;
+@export var isWarningBullet: bool = true
 
+func setRotationSpeed(speed: float) -> void:
+	rotatingSpeed = speed

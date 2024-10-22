@@ -1,14 +1,8 @@
 extends EnvironmentBulletSpawner
 
-
-@onready var bullet_fade_in_timer = $BulletFadeInTimer
 @export var bulletScene: PackedScene
 
-var canBulletSpawn: bool = false;
 var brightnessFactor = 0.4
-
-func _ready() -> void:
-	super._ready()
 
 func _on_spawning_cooldown_timeout() -> void:
 	var bullet: EnviornmentBullet = bulletScene.instantiate() as EnviornmentBullet
@@ -27,5 +21,5 @@ func bulletFadeInDuration(bullet: EnviornmentBullet) -> void:
 	setProperties(newBullet)
 	newBullet.position = bullet.position
 	print(newBullet.DamageDealing)
-	await get_tree().create_timer(bullet_fade_in_timer.wait_time).timeout
+	await get_tree().create_timer(warningBulletLifespan.wait_time).timeout
 	addBullet.emit(newBullet,lifespan)#add the real bullet
